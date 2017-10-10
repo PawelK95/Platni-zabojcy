@@ -1,0 +1,6 @@
+#ifndef PLATNI_ZABOJCY_PARAMETERS_H
+#define PLATNI_ZABOJCY_PARAMETERS_H
+const int KILLERS = 1;
+const int COMPANIES = 4;
+
+#endif
