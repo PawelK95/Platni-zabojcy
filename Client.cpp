@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
-#include <zconf.h>
+#include <unistd.h>
 #include <algorithm>
 #include <thread>
 
@@ -18,6 +18,7 @@ Client::Client(int size, int rank) {
     this->lamportClockOnRequest = -1;
     this->listOfCompaniesMutex = new std::mutex();
     this->listOfQueuesMutex = new std::mutex();
+    srand(time( NULL )*size*rank);
 }
 
 void handleMessage(Client * msg){
@@ -42,7 +43,6 @@ void Client::clientLoop() {
     t1.join();
     t2.join();
     }
-
 
 
 void Client::doStuff() {
@@ -120,6 +120,9 @@ int Client::choseCompany(Company listOfCompanies[], std::vector<int> listOfQueue
             maxPoints=companyPoints;
             id = i;
         }
+    }
+    if(maxPoints == 0){
+        return rand() % COMPANIES;
     }
     return id;
 }
@@ -265,7 +268,6 @@ void Client::handleMsg() {
     if(flag) {
 
         Message m;
-
 
         MPI_Recv(&m, sizeof(Message), MPI_BYTE, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 

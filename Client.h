@@ -1,5 +1,5 @@
-#ifndef PLATNI_ZABOJCY_ASSASIN_H
-#define PLATNI_ZABOJCY_ASSASIN_H
+#ifndef PLATNI_ZABOJCY_CLIENT_H
+#define PLATNI_ZABOJCY_CLIENT_H
 
 #include <string>
 #include <iostream>
