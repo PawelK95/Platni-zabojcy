@@ -30,7 +30,6 @@ class Client {
     std::mutex * listOfCompaniesMutex;
     Company listOfCompanies[COMPANIES];
     std::vector<int> listOfQueues[COMPANIES];
-    int localId;
 
     State state;
     Lamport *lamport;

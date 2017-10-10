@@ -16,10 +16,8 @@ Client::Client(int size, int rank) {
     this->currentInCompany = -1;
     this->state = IDLE;
     this->lamportClockOnRequest = -1;
-    this->localId = -1;
     this->listOfCompaniesMutex = new std::mutex();
     this->listOfQueuesMutex = new std::mutex();
-    srand(time(NULL)+rank*size*1000);
 }
 
 void handleMessage(Client * msg){
@@ -29,7 +27,7 @@ void handleMessage(Client * msg){
     }
 }
 
-void receive(Client * msg){
+void handleStuff(Client * msg){
     while(1){
         msg->doStuff();
         sleep(1);
@@ -40,7 +38,7 @@ void receive(Client * msg){
 
 void Client::clientLoop() {
     std::thread t1(handleMessage,this);
-    std::thread t2(receive,this);
+    std::thread t2(handleStuff,this);
     t1.join();
     t2.join();
     }
@@ -94,7 +92,6 @@ void Client::doStuff() {
 }
 
 void Client::askForCompany() {
-    this->localId++;
     Message msg={};
     listOfCompaniesMutex->lock();
     listOfQueuesMutex->lock();
